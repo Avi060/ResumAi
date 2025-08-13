@@ -3,7 +3,7 @@ import type { Route } from "./+types/home";
 import { resumes } from "../../constants";
 import ResumeCard from "~/components/ResumeCard";
 import { usePuterStore } from "~/lib/puter";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useEffect } from "react";
 
 export function meta({}: Route.MetaArgs) {
@@ -22,7 +22,8 @@ export default function Home() {
   }, [auth.isAuthenticated]);
 
   return (
-    <main className="bg-[url('/images/bg-main.svg')] bg-cover ">
+    <main className="bg-[url('/images/bg-small.svg')] bg-cover ">
+
       <Navbar />
       <section className="main-section">
         <div className="page-heading py-16">
