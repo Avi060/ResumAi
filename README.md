@@ -64,7 +64,7 @@ git clone https://github.com/Avi060/ResumAi.git
 cd ResumAi
 npm install
 npm run dev
-
+```
 ---
 
 Open http://localhost:5173 in your browser to get started.
