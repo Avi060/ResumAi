@@ -7,6 +7,13 @@ import { convertPdfToImage } from "~/lib/pdf2img";
 import { usePuterStore } from "~/lib/puter";
 import { generateUUID } from "~/lib/utils";
 
+export const meta = () => {
+  return [
+    { title: "Resumind | Upload" },
+    { name: "description", content: "Analyze your resume" },
+  ];
+};
+
 const upload = () => {
   const { auth, isLoading, fs, ai, kv } = usePuterStore();
   const navigate = useNavigate();
@@ -45,20 +52,25 @@ const upload = () => {
       companyName, jobTitle, jobDescription,
       feedback: '',
     }
-    await kv.set('resume:${uuid}', JSON.stringify(data));
+    await kv.set(`resume:${uuid}`, JSON.stringify(data));
+
+    
     setStatusText("Analyzing....");
+    
     const feedback = await ai.feedback(
       uploadedFile.path,
       prepareInstructions({jobTitle,jobDescription})
     )
     
     if (!feedback) return setStatusText("Error: failed to analyze resume");
+    
     const feedbackText = typeof feedback.message.content == 'string' ? feedback.message.content : feedback.message.content[0].text;
     
     data.feedback = JSON.parse(feedbackText);
-    await kv.set('resume:${uuid}', JSON.stringify(data));
+    await kv.set(`resume:${uuid}`, JSON.stringify(data));
     setStatusText("Analysis Complete, redirecting ....");
     console.log(data);
+    navigate(`/resume/${uuid}`);
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
