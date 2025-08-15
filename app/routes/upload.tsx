@@ -9,7 +9,7 @@ import { generateUUID } from "~/lib/utils";
 
 export const meta = () => {
   return [
-    { title: "Resumind | Upload" },
+    { title: "ResumAi | Upload" },
     { name: "description", content: "Analyze your resume" },
   ];
 };
